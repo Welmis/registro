@@ -6,8 +6,7 @@ use yii\helpers\Html;
 /* @var $model app\models\Dcertifico */
 
 $this->title = 'Adicinar  Entrega de  Certificados de Inspección de Vehiculos';
-$this->params['breadcrumbs'][] = ['label' => 'Certificados', 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title;
+
 ?>
 <div class="dcertifico-create">
 

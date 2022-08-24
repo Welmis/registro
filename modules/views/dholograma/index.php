@@ -10,7 +10,7 @@ use yii\helpers\Url;
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = 'Listado de Entregas de Hologramas';
-$this->params['breadcrumbs'][] = $this->title;
+
 ?>
 <div class="dholograma-index">
 

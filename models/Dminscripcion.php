@@ -32,7 +32,7 @@ class Dminscripcion extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [ 'num_inicial', 'cant'], 'required'],
+            [ ['num_inicial', 'cant'], 'required'],
             [['num_inicial', 'num_final', 'cant'], 'integer'],
             [['fecha'], 'safe'],
             [['siglas'], 'string', 'max' => 15],

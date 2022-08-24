@@ -31,15 +31,14 @@ class Dpegatina extends \yii\db\ActiveRecord
      */
     public function rules()
     {
-        return [
-            [[ 'num_inicial', 'cant', 'fecha', 'destino', 'anno'], 'required'],
-			[['fecha'], 'safe'],
-            [['anno'], 'integer'],
+		return [
+            [['num_inicial','anno', 'cant'], 'required'],
             [['num_inicial', 'num_final', 'cant'], 'integer'],
             [['fecha'], 'safe'],
             [['siglas'], 'string', 'max' => 15],
             [['destino', 'obs'], 'string', 'max' => 255],
         ];
+       
     }
 
     /**

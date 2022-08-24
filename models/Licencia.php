@@ -29,7 +29,7 @@ class Licencia extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['serial', 'destino', 'obs', 'fecha'], 'required'],
+            [['serial', 'destino', 'fecha'], 'required'],
             [['fecha'], 'safe'],
 			[['serial'], 'unique'],
             [['serial'], 'string', 'max' => 25],

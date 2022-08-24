@@ -99,6 +99,7 @@ class DpegatinaController extends Controller
                             }
 
                             $modelDpegatina->idp = $model->id;
+									
 							$modelDpegatina->fecha = $model->fecha;
 							$modelDpegatina->destino = $model->destino;
 							$modelDpegatina->num_final=$modelDpegatina->num_inicial+$modelDpegatina->cant;
@@ -114,11 +115,13 @@ class DpegatinaController extends Controller
 										 if ($flag === false) {break;                            }
 									$model1 = new Pegatina(); 
 									$model1->destino= $model->destino; 
-									$model1->idp= $modelDpegatina->id;
 									$model1->anno= $modelDpegatina->anno;
+									$model1->idp= $modelDpegatina->id;
 									$model1->obs= $modelDpegatina->obs;
 									$model1->fecha= $model->fecha;
-									$model1->serial= strtoupper($modelDpegatina->siglas).$inicio;
+									$model1->serial= strtoupper($modelDpegatina->siglas).str_pad($inicio,  4, "0", STR_PAD_LEFT).'-'.$model1->anno;
+									
+									
 									 if (!($flag = $model1->save())) {
 										 Yii::$app->session->setFlash('warning', "No es Posible Procesar la Información se genera un duplicado con el CODIGO  -->  ".$model1->serial);
 										$transaction->rollBack();
@@ -151,8 +154,7 @@ class DpegatinaController extends Controller
             'model' => $model,
             'modelsModelo' => (empty($modelsDpegatina)) ? [new Dpegatina] : $modelsDpegatina,
         ]);
-    }
-/**
+    }/**
      * Updates an existing Dpegatina model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param string $id ID

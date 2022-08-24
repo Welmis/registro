@@ -3,8 +3,8 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 08-08-2022 a las 08:46:13
--- Versión del servidor: 10.4.19-MariaDB
+-- Tiempo de generación: 24-08-2022 a las 15:44:56
+-- Versión del servidor: 10.4.18-MariaDB
 -- Versión de PHP: 7.3.28
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
@@ -32,8 +32,9 @@ CREATE TABLE `certifico` (
   `serial` varchar(25) NOT NULL,
   `destino` varchar(255) NOT NULL,
   `obs` varchar(255) NOT NULL,
-  `fecha` date NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `fecha` date NOT NULL,
+  `idp` bigint(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -49,8 +50,9 @@ CREATE TABLE `dcertifico` (
   `cant` int(11) NOT NULL,
   `fecha` date NOT NULL,
   `destino` varchar(255) NOT NULL,
-  `obs` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `obs` varchar(255) NOT NULL,
+  `idp` bigint(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -61,15 +63,29 @@ CREATE TABLE `dcertifico` (
 CREATE TABLE `destino` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `nombre` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `destino`
 --
 
 INSERT INTO `destino` (`id`, `nombre`) VALUES
-(1, 'La Habana'),
-(2, 'Holguin');
+(1, 'Isla de la Juventud'),
+(2, 'Artemisa'),
+(3, 'Camagüey'),
+(4, 'Ciego de Ávila'),
+(5, 'Cienfuegos'),
+(6, 'Granma'),
+(7, 'Guantánamo'),
+(8, 'Holguín'),
+(9, 'La Habana'),
+(10, 'Las Tunas'),
+(11, 'Matanzas'),
+(12, 'Mayabeque'),
+(13, 'Pinar del Río'),
+(14, 'Sancti Spíritus'),
+(15, 'Santiago de Cuba'),
+(16, 'Villa Clara');
 
 -- --------------------------------------------------------
 
@@ -85,8 +101,9 @@ CREATE TABLE `dholograma` (
   `cant` int(11) NOT NULL,
   `fecha` date NOT NULL,
   `destino` varchar(255) NOT NULL,
-  `obs` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `obs` varchar(255) NOT NULL,
+  `idp` bigint(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -102,8 +119,9 @@ CREATE TABLE `dlicencia` (
   `cant` int(11) NOT NULL,
   `fecha` date NOT NULL,
   `destino` varchar(255) NOT NULL,
-  `obs` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `obs` varchar(255) NOT NULL,
+  `idp` bigint(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -119,8 +137,9 @@ CREATE TABLE `dminscripcion` (
   `cant` int(11) NOT NULL,
   `fecha` date NOT NULL,
   `destino` varchar(255) NOT NULL,
-  `obs` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `obs` varchar(255) NOT NULL,
+  `idp` bigint(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -137,8 +156,18 @@ CREATE TABLE `dpegatina` (
   `fecha` date NOT NULL,
   `destino` varchar(255) NOT NULL,
   `obs` varchar(255) NOT NULL,
-  `anno` int(4) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `anno` int(4) NOT NULL,
+  `idp` bigint(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `dpegatina`
+--
+
+INSERT INTO `dpegatina` (`id`, `siglas`, `num_inicial`, `num_final`, `cant`, `fecha`, `destino`, `obs`, `anno`, `idp`) VALUES
+(1, 'qw', 11, 355, 344, '2022-08-04', 'cuba', '', 1234, 1),
+(2, '', 4, 10, 6, '2022-08-03', 'cuba', '', 1234, 2),
+(3, '', 1, 7, 6, '2022-08-10', 'cuba', '', 2050, 3);
 
 -- --------------------------------------------------------
 
@@ -151,8 +180,9 @@ CREATE TABLE `holograma` (
   `serial` varchar(25) NOT NULL,
   `destino` varchar(255) NOT NULL,
   `obs` varchar(255) NOT NULL,
-  `fecha` date NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `fecha` date NOT NULL,
+  `idp` bigint(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -165,7 +195,20 @@ CREATE TABLE `licencia` (
   `serial` varchar(25) NOT NULL,
   `destino` varchar(255) NOT NULL,
   `obs` varchar(255) NOT NULL,
-  `fecha` date NOT NULL
+  `fecha` date NOT NULL,
+  `idp` bigint(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `mc`
+--
+
+CREATE TABLE `mc` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `fecha` date NOT NULL,
+  `destino` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -179,8 +222,9 @@ CREATE TABLE `minscripcion` (
   `serial` varchar(25) NOT NULL,
   `destino` varchar(255) NOT NULL,
   `obs` varchar(255) NOT NULL,
-  `fecha` date NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `fecha` date NOT NULL,
+  `idp` bigint(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -194,8 +238,9 @@ CREATE TABLE `pegatina` (
   `destino` varchar(255) NOT NULL,
   `obs` varchar(255) NOT NULL,
   `fecha` date NOT NULL,
-  `anno` int(4) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `anno` int(4) NOT NULL,
+  `idp` bigint(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Índices para tablas volcadas
@@ -265,6 +310,13 @@ ALTER TABLE `licencia`
   ADD UNIQUE KEY `id` (`id`);
 
 --
+-- Indices de la tabla `mc`
+--
+ALTER TABLE `mc`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `id` (`id`);
+
+--
 -- Indices de la tabla `minscripcion`
 --
 ALTER TABLE `minscripcion`
@@ -298,7 +350,7 @@ ALTER TABLE `dcertifico`
 -- AUTO_INCREMENT de la tabla `destino`
 --
 ALTER TABLE `destino`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT de la tabla `dholograma`
@@ -322,7 +374,7 @@ ALTER TABLE `dminscripcion`
 -- AUTO_INCREMENT de la tabla `dpegatina`
 --
 ALTER TABLE `dpegatina`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `holograma`
@@ -334,6 +386,12 @@ ALTER TABLE `holograma`
 -- AUTO_INCREMENT de la tabla `licencia`
 --
 ALTER TABLE `licencia`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `mc`
+--
+ALTER TABLE `mc`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --

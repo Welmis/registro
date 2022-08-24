@@ -49,6 +49,7 @@ $this->title = 'Listado de Entregas de Pegatinas';
             'num_inicial',
             'num_final',
             'cant',
+           'anno',
            'fecha',
            'destino',
            'obs',

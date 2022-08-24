@@ -9,7 +9,6 @@ use yii\helpers\Url;
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = 'Listado de Entregas de Certicicados de Inscripcion de Vehiculos';
-$this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="dminscripcion-index">
 

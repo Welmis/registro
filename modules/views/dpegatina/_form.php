@@ -95,7 +95,7 @@ use wbraganca\dynamicform\DynamicFormWidget;
                    <?= $form->field($modelModelo, "[{$indexModelo}]cant")->label(false)->textInput(['maxlength' => true]) ?>
                 </td>
 				<td class="vcenter">
-                   <?= $form->field($modelModelo, "[{$indexModelo}]anno")->label(false)->textInput(['maxlength' => true]) ?>
+                   <?= $form->field($modelModelo, "[{$indexModelo}]anno")->label(false)->textInput(['type'=>'number', 'min' => 2000, 'max' => 2025]) ?>
                 </td>
 				<td class="vcenter">
                    <?= $form->field($modelModelo, "[{$indexModelo}]obs")->label(false)->textInput(['maxlength' => true]) ?>

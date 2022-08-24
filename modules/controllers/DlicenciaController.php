@@ -4,6 +4,7 @@ namespace app\modules\controllers;
 
 use app\models\Dlicencia;
 use app\models\Licencia;
+use app\models\Mc;
 use app\modules\searchs\DlicenciaSearch;
 use Yii;
 use yii\db\Transaction;
@@ -71,59 +72,83 @@ class DlicenciaController extends Controller
      */
     public function actionCreate()
     {
-        $model = new Dlicencia();
+        $model = new Mc;
+        $modelsDlicencia = [new Dlicencia];
         
-        $flag=0;
-        if ($this->request->isPost) {
+        if ($model->load(Yii::$app->request->post())) {
 
-           //original if ($model->load($this->request->post()) && $model->save()) {
-            if ($model->load($this->request->post())) {
-                $transaction = \Yii::$app->db->beginTransaction();
-                $flag=0;
+            $modelsDlicencia = Model::createMultiple(Dlicencia::classname());
+            Model::loadMultiple($modelsDlicencia, Yii::$app->request->post());
+
+            // validate Mc and Dlicencias models
+            $valid = $model->validate();
+            $valid = Model::validateMultiple($modelsDlicencia) && $valid;
+
+            
+
+            if ($valid) {
+				
+				$transaction = Yii::$app->db->beginTransaction();
                 try {
-		$model->num_final=$model->num_inicial+$model->cant;
-		$inicio=$model->num_inicial;
-		$fin=$model->num_final;
-          if ($flag = $model->save()) {
-                        
-					while ( $inicio<= $fin)
-					{
-					$model1 = new Licencia(); 
-					$model1->destino= $model->destino; $model1->idp= $model->id;
-					$model1->obs= $model->obs;
-					$model1->fecha= $model->fecha;               
-					$model1->serial= strtoupper($model->siglas).$inicio;
+                    if ($flag = $model->save(false)) {
+						
+                       foreach ($modelsDlicencia as $indexDlicencia => $modelDlicencia) {
 
-					if (!($flag = $model1->save())) {
-					$transaction->rollBack();
-                    Yii::$app->session->setFlash('danger', 'Error esta Operacion Genera un  Duplicado con el Serial '.$model1->serial);
-					break;
-					}
-					$inicio++;
-					} 
+                            if ($flag === false) {
+                                break;
+                            }
 
-                        
+                            $modelDlicencia->idp = $model->id;
+							$modelDlicencia->fecha = $model->fecha;
+							$modelDlicencia->destino = $model->destino;
+							$modelDlicencia->num_final=$modelDlicencia->num_inicial+$modelDlicencia->cant;
+							$inicio=$modelDlicencia->num_inicial;
+							$fin=$modelDlicencia->num_final;
+
+                            if (!($flag = $modelDlicencia->save(false))) {
+                                break;
+                            }
+							
+							while ( $inicio<= $fin)
+									{
+										 if ($flag === false) {break;                            }
+									$model1 = new Licencia(); 
+									$model1->destino= $model->destino; 
+									$model1->idp= $modelDlicencia->id;
+									$model1->obs= $modelDlicencia->obs;
+									$model1->fecha= $model->fecha;
+									$model1->serial= strtoupper($modelDlicencia->siglas).$inicio;
+									 if (!($flag = $model1->save())) {
+										 Yii::$app->session->setFlash('warning', "No es Posible Procesar la Información se genera un duplicado con el CODIGO  -->  ".$model1->serial);
+										$transaction->rollBack();
+									break;
+									}
+									$inicio++;
+									}
+
+                            
+                        }
                     }
+
                     if ($flag) {
                         $transaction->commit();
-                        Yii::$app->session->setFlash('success', 'Se ha registrado la Operacion  correctamente');
-                        return $this->redirect(['view', 'id' => $model->id]);
+						Yii::$app->session->setFlash('success', "Operación realizada Exito!!!!");
+                        return $this->redirect(['index']);
+                    } else {
+						 
+                        $transaction->rollBack();
                     }
-                    $transaction->rollBack();
                 } catch (Exception $e) {
+					
                     $transaction->rollBack();
                 }
-                
-                               
 				
-                
-            }
-        } else {
-            $model->loadDefaultValues();
+            }//modelos validados
         }
 
         return $this->render('create', [
             'model' => $model,
+            'modelsModelo' => (empty($modelsDlicencia)) ? [new Dlicencia] : $modelsDlicencia,
         ]);
     }
 

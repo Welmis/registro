@@ -4,6 +4,7 @@ namespace app\modules\controllers;
 
 use app\models\Dholograma;
 use app\models\Holograma;
+use app\models\Mc;
 use app\modules\searchs\DhologramaSearch;
 use Yii;
 use yii\db\Transaction;
@@ -72,16 +73,16 @@ class DhologramaController extends Controller
     public function actionCreate()
     {
         $model = new Mc;
-        $modelsDcertifico = [new Dcertifico];
+        $modelsDholograma = [new Dholograma];
         
         if ($model->load(Yii::$app->request->post())) {
 
-            $modelsDcertifico = Model::createMultiple(Dcertifico::classname());
-            Model::loadMultiple($modelsDcertifico, Yii::$app->request->post());
+            $modelsDholograma = Model::createMultiple(Dholograma::classname());
+            Model::loadMultiple($modelsDholograma, Yii::$app->request->post());
 
-            // validate Mc and Dcertificos models
+            // validate Mc and Dhologramas models
             $valid = $model->validate();
-            $valid = Model::validateMultiple($modelsDcertifico) && $valid;
+            $valid = Model::validateMultiple($modelsDholograma) && $valid;
 
             
 
@@ -91,32 +92,32 @@ class DhologramaController extends Controller
                 try {
                     if ($flag = $model->save(false)) {
 						
-                       foreach ($modelsDcertifico as $indexDcertifico => $modelDcertifico) {
+                       foreach ($modelsDholograma as $indexDholograma => $modelDholograma) {
 
                             if ($flag === false) {
                                 break;
                             }
 
-                            $modelDcertifico->idp = $model->id;
-							$modelDcertifico->fecha = $model->fecha;
-							$modelDcertifico->destino = $model->destino;
-							$modelDcertifico->num_final=$modelDcertifico->num_inicial+$modelDcertifico->cant;
-							$inicio=$modelDcertifico->num_inicial;
-							$fin=$modelDcertifico->num_final;
+                            $modelDholograma->idp = $model->id;
+							$modelDholograma->fecha = $model->fecha;
+							$modelDholograma->destino = $model->destino;
+							$modelDholograma->num_final=$modelDholograma->num_inicial+$modelDholograma->cant;
+							$inicio=$modelDholograma->num_inicial;
+							$fin=$modelDholograma->num_final;
 
-                            if (!($flag = $modelDcertifico->save(false))) {
+                            if (!($flag = $modelDholograma->save(false))) {
                                 break;
                             }
 							
 							while ( $inicio<= $fin)
 									{
 										 if ($flag === false) {break;                            }
-									$model1 = new Certifico(); 
+									$model1 = new Holograma(); 
 									$model1->destino= $model->destino; 
-									$model1->idp= $modelDcertifico->id;
-									$model1->obs= $modelDcertifico->obs;
+									$model1->idp= $modelDholograma->id;
+									$model1->obs= $modelDholograma->obs;
 									$model1->fecha= $model->fecha;
-									$model1->serial= strtoupper($modelDcertifico->siglas).$inicio;
+									$model1->serial= strtoupper($modelDholograma->siglas).$inicio;
 									 if (!($flag = $model1->save())) {
 										 Yii::$app->session->setFlash('warning', "No es Posible Procesar la Información se genera un duplicado con el CODIGO  -->  ".$model1->serial);
 										$transaction->rollBack();
@@ -147,7 +148,7 @@ class DhologramaController extends Controller
 
         return $this->render('create', [
             'model' => $model,
-            'modelsModelo' => (empty($modelsDcertifico)) ? [new Dcertifico] : $modelsDcertifico,
+            'modelsModelo' => (empty($modelsDholograma)) ? [new Dholograma] : $modelsDholograma,
         ]);
     }
 

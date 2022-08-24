@@ -9,7 +9,7 @@ use yii\helpers\Url;
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = 'Listado de Hologramas de Seguridad';
-$this->params['breadcrumbs'][] = $this->title;
+
 ?>
 <div class="certifico-index">
 
