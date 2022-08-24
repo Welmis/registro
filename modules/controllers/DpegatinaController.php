@@ -2,6 +2,7 @@
 
 namespace app\modules\controllers;
 
+use app\models\Mc;
 use app\models\Dpegatina;
 use app\models\Pegatina;
 use app\modules\searchs\DpegatinaSearch;
@@ -70,64 +71,88 @@ class DpegatinaController extends Controller
      * @return string|\yii\web\Response
      */
     public function actionCreate()
-    {
-        $model = new Dpegatina();
+   {
+        $model = new Mc;
+        $modelsDpegatina = [new Dpegatina];
         
-        $flag=0;
-        if ($this->request->isPost) {
+        if ($model->load(Yii::$app->request->post())) {
 
-           //original if ($model->load($this->request->post()) && $model->save()) {
-            if ($model->load($this->request->post())) {
-                $transaction = \Yii::$app->db->beginTransaction();
-                $flag=0;
+            $modelsDpegatina = Model::createMultiple(Dpegatina::classname());
+            Model::loadMultiple($modelsDpegatina, Yii::$app->request->post());
+
+            // validate Mc and Dpegatinas models
+            $valid = $model->validate();
+            $valid = Model::validateMultiple($modelsDpegatina) && $valid;
+
+            
+
+            if ($valid) {
+				
+				$transaction = Yii::$app->db->beginTransaction();
                 try {
-		$model->num_final=$model->num_inicial+$model->cant;
-		$inicio=$model->num_inicial;
-		$fin=$model->num_final;
-          if ($flag = $model->save()) {
-                      
-					while ( $inicio<= $fin)
-					{
-					$model1 = new Pegatina(); 
-					$model1->destino= $model->destino; $model1->idp= $model->id;
-					$model1->anno= $model->anno;
-					$model1->obs= $model->obs;
-					$model1->fecha= $model->fecha;               
-					$model1->serial= strtoupper($model->siglas).$inicio;
+                    if ($flag = $model->save(false)) {
+						
+                       foreach ($modelsDpegatina as $indexDpegatina => $modelDpegatina) {
 
-					if (!($flag = $model1->save())) {
-					$transaction->rollBack();
-                    Yii::$app->session->setFlash('danger', 'Error esta Operacion Genera un  Duplicado con el Serial '.$model1->serial);
-					break;
-					}
-					$inicio++;
-					} 
+                            if ($flag === false) {
+                                break;
+                            }
 
-                        
+                            $modelDpegatina->idp = $model->id;
+							$modelDpegatina->fecha = $model->fecha;
+							$modelDpegatina->destino = $model->destino;
+							$modelDpegatina->num_final=$modelDpegatina->num_inicial+$modelDpegatina->cant;
+							$inicio=$modelDpegatina->num_inicial;
+							$fin=$modelDpegatina->num_final;
+
+                            if (!($flag = $modelDpegatina->save(false))) {
+                                break;
+                            }
+							
+							while ( $inicio<= $fin)
+									{
+										 if ($flag === false) {break;                            }
+									$model1 = new Pegatina(); 
+									$model1->destino= $model->destino; 
+									$model1->idp= $modelDpegatina->id;
+									$model1->anno= $modelDpegatina->anno;
+									$model1->obs= $modelDpegatina->obs;
+									$model1->fecha= $model->fecha;
+									$model1->serial= strtoupper($modelDpegatina->siglas).$inicio;
+									 if (!($flag = $model1->save())) {
+										 Yii::$app->session->setFlash('warning', "No es Posible Procesar la Información se genera un duplicado con el CODIGO  -->  ".$model1->serial);
+										$transaction->rollBack();
+									break;
+									}
+									$inicio++;
+									}
+
+                            
+                        }
                     }
+
                     if ($flag) {
                         $transaction->commit();
-                        Yii::$app->session->setFlash('success', 'Se ha registrado la Operacion  correctamente');
-                        return $this->redirect(['view', 'id' => $model->id]);
+						Yii::$app->session->setFlash('success', "Operación realizada Exito!!!!");
+                        return $this->redirect(['index']);
+                    } else {
+						 
+                        $transaction->rollBack();
                     }
-                    $transaction->rollBack();
                 } catch (Exception $e) {
+					
                     $transaction->rollBack();
                 }
-                
-                               
 				
-                
-            }
-        } else {
-            $model->loadDefaultValues();
+            }//modelos validados
         }
 
         return $this->render('create', [
             'model' => $model,
+            'modelsModelo' => (empty($modelsDpegatina)) ? [new Dpegatina] : $modelsDpegatina,
         ]);
     }
- /**
+/**
      * Updates an existing Dpegatina model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param string $id ID

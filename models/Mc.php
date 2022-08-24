@@ -5,7 +5,7 @@ namespace app\models;
 use Yii;
 
 /**
- * This is the model class for table "dminscripcion".
+ * This is the model class for table "mc".
  *
  * @property int $id
  * @property string $siglas
@@ -16,14 +16,14 @@ use Yii;
  * @property string $destino
  * @property string $obs
  */
-class Dminscripcion extends \yii\db\ActiveRecord
+class Mc extends \yii\db\ActiveRecord
 {
     /**
      * {@inheritdoc}
      */
     public static function tableName()
     {
-        return 'dminscripcion';
+        return 'mc';
     }
 
     /**
@@ -32,11 +32,9 @@ class Dminscripcion extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [ 'num_inicial', 'cant'], 'required'],
-            [['num_inicial', 'num_final', 'cant'], 'integer'],
+            [['fecha', 'destino'], 'required'],
             [['fecha'], 'safe'],
-            [['siglas'], 'string', 'max' => 15],
-            [['destino', 'obs'], 'string', 'max' => 255],
+            [['destino'], 'string', 'max' => 255],
         ];
     }
 
@@ -46,14 +44,9 @@ class Dminscripcion extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => 'ID',
-            'siglas' => 'Siglas',
-            'num_inicial' => 'Num Inicial',
-            'num_final' => 'Num Final',
-            'cant' => 'Cantidad de Modelos',
             'fecha' => 'Fecha',
             'destino' => 'Entregado a',
-            'obs' => 'Observaciones',
+           
         ];
     }
 }

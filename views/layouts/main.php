@@ -28,12 +28,57 @@ if (Yii::$app->controller->action->id === 'login') {
     ?>
     <?php $this->beginPage() ?>
     <!DOCTYPE html>
+	 <?php
+if (Yii::$app->session->hasFlash('success')) {
+    ?>
+    <div class="alert alert-success alert-dismissible mb-2" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">×</span>
+        </button>
+        <strong> <?= Yii::$app->session->getFlash('success') ?></strong>
+    </div>
+    <?php
+}
+
+if (Yii::$app->session->hasFlash('error')) {
+    ?>
+    <div class="alert alert-danger alert-dismissible mb-2" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">×</span>
+        </button>
+        <strong> <?= Yii::$app->session->getFlash('error') ?></strong>
+    </div>
+    <?php
+}
+
+if (Yii::$app->session->hasFlash('info')) {
+    ?>
+    <div class="alert alert-info alert-dismissible mb-2" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">×</span>
+        </button>
+        <strong> <?= Yii::$app->session->getFlash('info') ?></strong>
+    </div>
+    <?php
+}
+
+if (Yii::$app->session->hasFlash('warning')) {
+    ?>
+    <div class="alert alert-warning alert-dismissible mb-2" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">×</span>
+        </button>
+        <strong> <?= Yii::$app->session->getFlash('warning') ?></strong>
+    </div>
+    <?php
+}
+?>
     <html lang="<?= Yii::$app->language ?>">
     <head>
         <meta charset="<?= Yii::$app->charset ?>"/>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <?= Html::csrfMetaTags() ?>
-        <title><?= Html::encode($this->title) ?></title>
+        <title>REGISTROS</title>
         <?php $this->head() ?>
     </head>
     <body class="hold-transition skin-blue sidebar-mini">

@@ -10,7 +10,7 @@ use kartik\export\ExportMenu;
 /* @var $searchModel app\modules\searchs\CertificoSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Listado de Modelos de Inscripción';
+$this->title = 'Listado de Modelos de Inspección de Vehiculos';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="certifico-index">

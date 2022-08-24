@@ -32,7 +32,7 @@ class Dcertifico extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['siglas', 'num_inicial', 'cant', 'fecha', 'destino'], 'required'],
+            [['num_inicial', 'cant'], 'required'],
             [['num_inicial', 'num_final', 'cant'], 'integer'],
             [['fecha'], 'safe'],
             [['siglas'], 'string', 'max' => 15],

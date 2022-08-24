@@ -32,7 +32,7 @@ class Dlicencia extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['siglas', 'num_inicial', 'num_final', 'cant', 'fecha', 'destino', 'obs'], 'required'],
+            [ ['num_inicial', 'cant'], 'required'],
             [['num_inicial', 'num_final', 'cant'], 'integer'],
             [['fecha'], 'safe'],
             [['siglas'], 'string', 'max' => 15],

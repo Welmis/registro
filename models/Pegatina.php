@@ -30,7 +30,7 @@ class Pegatina extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['serial', 'destino', 'obs', 'fecha', 'anno'], 'required'],
+            [['serial', 'destino',  'fecha', 'anno'], 'required'],
             [['fecha'], 'safe'],
             [['anno'], 'integer'],
 			[['serial'], 'unique'],

@@ -7,7 +7,7 @@ use yii\helpers\Url;
 /* @var $searchModel app\modules\searchs\CertificoSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Listado de Certificados de Inscripción';
+$this->title = 'Listado de Certificados de Inspección de Vehiculos';
 $this->params['breadcrumbs'][] = $this->title;
 
 ?>

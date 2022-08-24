@@ -6,15 +6,15 @@ use yii\helpers\Html;
 /* @var $model app\models\Dpegatina */
 
 $this->title = 'Adicinar  Entrega de Pegatina';
-$this->params['breadcrumbs'][] = ['label' => 'Dpegatinas', 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title;
+
+
 ?>
 <div class="dpegatina-create">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+   
 
     <?= $this->render('_form', [
-        'model' => $model,
+        'model' => $model,'modelsModelo' => $modelsModelo,
     ]) ?>
 
 </div>

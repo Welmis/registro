@@ -9,7 +9,7 @@ use yii\helpers\Url;
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = 'Listado de Entregas de Pegatinas';
-$this->params['breadcrumbs'][] = $this->title;
+
 ?>
 <div class="dpegatina-index">
 
