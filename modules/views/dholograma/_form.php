@@ -72,11 +72,8 @@ use wbraganca\dynamicform\DynamicFormWidget;
                 </td>
 				
 				<td class="vcenter">
-                  num_inicial
-                </td>
-				<td class="vcenter">
-                  cant
-                </td>
+                  Numero Inicial </td><td class="vcenter">
+Cantidad de modelos</td>
 				<td class="vcenter">
                   obs
                 </td>
@@ -98,7 +95,7 @@ use wbraganca\dynamicform\DynamicFormWidget;
                    <?= $form->field($modelModelo, "[{$indexModelo}]num_inicial")->label(false)->textInput(['maxlength' => true]) ?>
                 </td>
 				<td class="vcenter">
-                   <?= $form->field($modelModelo, "[{$indexModelo}]cant")->label(false)->textInput(['maxlength' => true]) ?>
+                   <?= $form->field($modelModelo, "[{$indexModelo}]cant")->label(false)->dropDownList([ 4999 => '4999',  249 => '249', 499 => '499', 999 => '999']);?>
                 </td>
 				<td class="vcenter">
                    <?= $form->field($modelModelo, "[{$indexModelo}]obs")->label(false)->textInput(['maxlength' => true]) ?>
