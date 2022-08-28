@@ -34,7 +34,7 @@ class Mc extends \yii\db\ActiveRecord
         return [
             [['fecha', 'destino'], 'required'],
             [['fecha'], 'safe'],
-            [['destino'], 'string', 'max' => 255],
+            [['destino','obs'], 'string', 'max' => 255],
         ];
     }
 
@@ -45,7 +45,8 @@ class Mc extends \yii\db\ActiveRecord
     {
         return [
             'fecha' => 'Fecha',
-            'destino' => 'Entregado a',
+            'destino' => 'Entregado a Destino',
+            'obs' => 'Observaciones',
            
         ];
     }

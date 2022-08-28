@@ -17,17 +17,29 @@ use wbraganca\dynamicform\DynamicFormWidget;
 
 
      <?php $form = ActiveForm::begin(['id' => 'dynamic-form']); ?>
-	
-   
-
-    <?= $form->field($model, 'fecha')->widget(DatePicker::className(), 
+	<div class="row">
+<div class="col-md-3">
+	<?= $form->field($model, 'fecha')->widget(DatePicker::className(), 
 		[	'options' => ['placeholder' => 'Fecha..'],
 			'pluginOptions' => ['autoclose' => true,'format' => 'yyyy-mm-dd',]
 		])
 	?>
+	</div>
+	<div class="col-md-3">
+	
+	<?= $form->field($model, 'destino')->dropDownList(ArrayHelper::map(Destino::find()->all(), 'nombre', 'nombre'),['prompt'=>'Por favor elija uno',]); ?>
+</div>
+<div class="col-md-6">
+	
+	 <?= $form->field($model, 'obs')->textInput(['maxlength' => true]) ?>
+</div>
+                        
+</div>
+   
 
-   <?= $form->field($model, 'destino')->dropDownList(ArrayHelper::map(Destino::find()->all(), 'nombre', 'nombre'),['prompt'=>'Por favor elija uno',]); ?>
+    
 
+  
    
     <?php DynamicFormWidget::begin([
         'widgetContainer' => 'dynamicform_wrapper',
@@ -58,9 +70,7 @@ use wbraganca\dynamicform\DynamicFormWidget;
                 <td class="vcenter">
                    Siglas
                 </td>
-				<td class="vcenter">
-                   num_final
-                </td>
+				
 				<td class="vcenter">
                   num_inicial
                 </td>
@@ -83,9 +93,7 @@ use wbraganca\dynamicform\DynamicFormWidget;
                    
                    <?= $form->field($modelModelo, "[{$indexModelo}]siglas")->label(false)->textInput(['maxlength' => true]) ?>
                 </td>
-				<td class="vcenter">
-                   <?= $form->field($modelModelo, "[{$indexModelo}]num_final")->label(false)->textInput(['maxlength' => true]) ?>
-                </td>
+				
 				<td class="vcenter">
                    <?= $form->field($modelModelo, "[{$indexModelo}]num_inicial")->label(false)->textInput(['maxlength' => true]) ?>
                 </td>

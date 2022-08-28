@@ -19,7 +19,7 @@ $this->title = 'Listado de Entregas de Pegatinas';
     'dataProvider' => $dataProvider,'filterModel' => $searchModel,
     'columns' => [ 'serial',
             'destino',
-            'obs',
+            'obs','anno',
             'fecha'],
 	'showConfirmAlert' => false,'target' => ExportMenu::TARGET_BLANK,'exportConfig' => [ExportMenu::FORMAT_CSV => false,ExportMenu::FORMAT_EXCEL => false,ExportMenu::FORMAT_HTML => false, ExportMenu::FORMAT_TEXT => false], 'showConfirmAlert' => false, 'filename' => 'Pegatinas'.date("m.d.y"), 
     'dropdownOptions' => [

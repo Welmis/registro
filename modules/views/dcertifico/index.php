@@ -9,15 +9,15 @@ use app\models\Dcertifico;
 /* @var $searchModel app\modules\searchs\DcertificoSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Listado de Entregas de  Certificados de Inspección de Vehiculos';
-$this->params['breadcrumbs'][] = $this->title;
+$this->title = 'Listado de Entregas de  Certificados de Inscripción de Vehiculos';
+
 ?>
 <div class="dcertifico-index">
 
     
 
     <p>
-        <?= Html::a('Add Entrega de  Certificados de Inspección de Vehiculos', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Add Entrega de  Certificados de Inscripción de Vehiculos', ['create'], ['class' => 'btn btn-success']) ?>
 		<?=ExportMenu::widget([
     'dataProvider' => $dataProvider,'filterModel' => $searchModel,
     'columns' => [ 'siglas',

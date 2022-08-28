@@ -101,6 +101,7 @@ class DcertificoController extends Controller
 
                             $modelDcertifico->idp = $model->id;
 							$modelDcertifico->fecha = $model->fecha;
+							$modelDcertifico->obs = $model->obs.':'.$modelDcertifico->obs;
 							$modelDcertifico->destino = $model->destino;
 							$modelDcertifico->num_final=$modelDcertifico->num_inicial+$modelDcertifico->cant;
 							$inicio=$modelDcertifico->num_inicial;
@@ -118,7 +119,7 @@ class DcertificoController extends Controller
 									$model1->idp= $modelDcertifico->id;
 									$model1->obs= $modelDcertifico->obs;
 									$model1->fecha= $model->fecha;
-									$model1->serial= strtoupper($modelDcertifico->siglas).$inicio;
+									$model1->serial= strtoupper($modelDcertifico->siglas).str_pad($inicio,  6, "0", STR_PAD_LEFT);
 									 if (!($flag = $model1->save())) {
 										 Yii::$app->session->setFlash('warning', "No es Posible Procesar la Información se genera un duplicado con el CODIGO  -->  ".$model1->serial);
 										$transaction->rollBack();

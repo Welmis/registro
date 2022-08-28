@@ -99,6 +99,7 @@ class DminscripcionController extends Controller
 
                             $modelDminscripcion->idp = $model->id;
 							$modelDminscripcion->fecha = $model->fecha;
+							$modelDminscripcion->obs = $model->obs.':'.$modelDminscripcion->obs;
 							$modelDminscripcion->destino = $model->destino;
 							$modelDminscripcion->num_final=$modelDminscripcion->num_inicial+$modelDminscripcion->cant;
 							$inicio=$modelDminscripcion->num_inicial;
@@ -116,7 +117,7 @@ class DminscripcionController extends Controller
 									$model1->idp= $modelDminscripcion->id;
 									$model1->obs= $modelDminscripcion->obs;
 									$model1->fecha= $model->fecha;
-									$model1->serial= strtoupper($modelDminscripcion->siglas).$inicio;
+									$model1->serial= strtoupper($modelDminscripcion->siglas).str_pad($inicio,  6, "0", STR_PAD_LEFT);
 									 if (!($flag = $model1->save())) {
 										 Yii::$app->session->setFlash('warning', "No es Posible Procesar la Información se genera un duplicado con el CODIGO  -->  ".$model1->serial);
 										$transaction->rollBack();

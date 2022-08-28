@@ -100,6 +100,7 @@ class DhologramaController extends Controller
 
                             $modelDholograma->idp = $model->id;
 							$modelDholograma->fecha = $model->fecha;
+							$modelDholograma->obs = $model->obs.':'.$modelDholograma->obs;
 							$modelDholograma->destino = $model->destino;
 							$modelDholograma->num_final=$modelDholograma->num_inicial+$modelDholograma->cant;
 							$inicio=$modelDholograma->num_inicial;
@@ -117,7 +118,7 @@ class DhologramaController extends Controller
 									$model1->idp= $modelDholograma->id;
 									$model1->obs= $modelDholograma->obs;
 									$model1->fecha= $model->fecha;
-									$model1->serial= strtoupper($modelDholograma->siglas).$inicio;
+									$model1->serial= strtoupper($modelDholograma->siglas).str_pad($inicio,  7, "0", STR_PAD_LEFT);
 									 if (!($flag = $model1->save())) {
 										 Yii::$app->session->setFlash('warning', "No es Posible Procesar la Información se genera un duplicado con el CODIGO  -->  ".$model1->serial);
 										$transaction->rollBack();

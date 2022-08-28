@@ -102,6 +102,7 @@ class DpegatinaController extends Controller
 									
 							$modelDpegatina->fecha = $model->fecha;
 							$modelDpegatina->destino = $model->destino;
+							$modelDpegatina->obs = $model->obs.':'.$modelDpegatina->obs;
 							$modelDpegatina->num_final=$modelDpegatina->num_inicial+$modelDpegatina->cant;
 							$inicio=$modelDpegatina->num_inicial;
 							$fin=$modelDpegatina->num_final;
@@ -119,7 +120,7 @@ class DpegatinaController extends Controller
 									$model1->idp= $modelDpegatina->id;
 									$model1->obs= $modelDpegatina->obs;
 									$model1->fecha= $model->fecha;
-									$model1->serial= strtoupper($modelDpegatina->siglas).str_pad($inicio,  4, "0", STR_PAD_LEFT).'-'.$model1->anno;
+									$model1->serial= $model1->anno.' '.strtoupper($modelDpegatina->siglas).str_pad($inicio,  6, "0", STR_PAD_LEFT);
 									
 									
 									 if (!($flag = $model1->save())) {

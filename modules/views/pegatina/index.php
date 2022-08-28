@@ -11,7 +11,7 @@ use kartik\export\ExportMenu;
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = 'Listado de Certificados de Pegatinas';
-$this->params['breadcrumbs'][] = $this->title;
+
 ?>
 <div class="pegatina-index">
 

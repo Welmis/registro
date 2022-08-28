@@ -8,13 +8,13 @@ use yii\helpers\Url;
 /* @var $searchModel app\modules\searchs\DminscripcionSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Listado de Entregas de Certicicados de Inscripcion de Vehiculos';
+$this->title = 'Listado de Entregas de Modelos de Inspección Técnica';
 ?>
 <div class="dminscripcion-index">
 
    
     <p>
-        <?= Html::a('Add Entrega de  Inscripcion', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Add Entrega de Modelos de Inspección Técnica', ['create'], ['class' => 'btn btn-success']) ?>
 		<?=ExportMenu::widget([
     'dataProvider' => $dataProvider,'filterModel' => $searchModel,
     'columns' => [ 'serial',

@@ -10,11 +10,11 @@ use yii\grid\GridView;
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = 'Destinos';
-$this->params['breadcrumbs'][] = $this->title;
+
 ?>
 <div class="destino-index">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+    
 
     <p>
         <?= Html::a('Create Destino', ['create'], ['class' => 'btn btn-success']) ?>

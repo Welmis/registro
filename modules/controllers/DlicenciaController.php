@@ -100,6 +100,7 @@ class DlicenciaController extends Controller
 
                             $modelDlicencia->idp = $model->id;
 							$modelDlicencia->fecha = $model->fecha;
+							$modelDlicencia->obs = $model->obs.':'.$modelDlicencia->obs;
 							$modelDlicencia->destino = $model->destino;
 							$modelDlicencia->num_final=$modelDlicencia->num_inicial+$modelDlicencia->cant;
 							$inicio=$modelDlicencia->num_inicial;
@@ -117,7 +118,7 @@ class DlicenciaController extends Controller
 									$model1->idp= $modelDlicencia->id;
 									$model1->obs= $modelDlicencia->obs;
 									$model1->fecha= $model->fecha;
-									$model1->serial= strtoupper($modelDlicencia->siglas).$inicio;
+									$model1->serial= strtoupper($modelDlicencia->siglas).str_pad($inicio,  7, "0", STR_PAD_LEFT);
 									 if (!($flag = $model1->save())) {
 										 Yii::$app->session->setFlash('warning', "No es Posible Procesar la Información se genera un duplicado con el CODIGO  -->  ".$model1->serial);
 										$transaction->rollBack();

@@ -9,13 +9,13 @@ use yii\helpers\Url;
 /* @var $searchModel app\modules\searchs\DlicenciaSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Listado de Entregas de licencias de Circulacion';
-$this->params['breadcrumbs'][] = $this->title;
+$this->title = 'Listado de Entregas de licencias de Circulación';
+
 ?>
 <div class="dlicencia-index">
 
 <p>
-        <?= Html::a('Add Entrega de licencia', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Add Entrega de licencias de Circulación', ['create'], ['class' => 'btn btn-success']) ?>
 		<?=ExportMenu::widget([
     'dataProvider' => $dataProvider,'filterModel' => $searchModel,
     'columns' => [  'siglas',
